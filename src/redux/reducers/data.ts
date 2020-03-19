@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GRID_TYPE } from '../../constants';
-import {
-  AppThunk,
-  IDataTypeOne,
-  IDataTypeThree,
-  IDataTypeTwo,
-} from '../../types';
-import apiManager from '../../utils/apiManager';
+import { IDataTypeOne, IDataTypeThree, IDataTypeTwo } from '../../types';
 
 export interface State {
   [x: string]: (IDataTypeOne | IDataTypeTwo | IDataTypeThree)[];
@@ -36,7 +30,7 @@ const slice = createSlice({
     ) {
       state[action.payload.gridID] = action.payload.data;
     },
-    requestGridData_DO_NOT_USE(state, action: PayloadAction<string>) {
+    requestGridData(state, action: PayloadAction<string>) {
       state[action.payload] = null;
     },
   },
@@ -44,18 +38,6 @@ const slice = createSlice({
 
 const { actions, reducer } = slice;
 
-export const { receiveGridData, requestGridData_DO_NOT_USE } = actions;
-
-export const requestGridData = (
-  payload: string
-): AppThunk<void> => dispatch => {
-  dispatch(requestGridData_DO_NOT_USE(payload));
-  setTimeout(() => {
-    if (apiManager.ready(payload)) {
-      apiManager.getGridApi(payload).hideOverlay();
-      apiManager.getGridApi(payload).showLoadingOverlay();
-    }
-  }, 50);
-};
+export const { receiveGridData, requestGridData } = actions;
 
 export default reducer;

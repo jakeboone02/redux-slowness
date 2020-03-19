@@ -1,15 +1,16 @@
+import { ColDef } from 'ag-grid-community';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { GRID_TYPE } from './constants';
 import GridMemoWrapper from './GridMemoWrapper';
 import { getGridData, RootState } from './redux/reducers';
-import apiManager from './utils/apiManager';
-import { ColDef } from 'ag-grid-community';
 
 const columnDefs: ColDef[] = [];
 for (let i = 1; i <= 14; i++) {
   columnDefs.push({ field: `field${i}`, headerName: `Field ${i}` });
 }
+
+const gridStyle: React.CSSProperties = { height: 400, width: 600 };
 
 const GridComponent: React.FC = () => {
   const dataOne = useSelector((state: RootState) =>
@@ -21,21 +22,11 @@ const GridComponent: React.FC = () => {
 
   return (
     <div className="ag-theme-balham">
-      <div style={{ height: 400, width: 600 }}>
-        <GridMemoWrapper
-          columnDefs={columnDefs}
-          context={{ gridID: GRID_TYPE.ONE }}
-          rowData={dataOne}
-          onGridReady={gre => apiManager.registerGrid(gre)}
-        />
+      <div style={gridStyle}>
+        <GridMemoWrapper columnDefs={columnDefs} rowData={dataOne} />
       </div>
-      <div style={{ height: 400, width: 600 }}>
-        <GridMemoWrapper
-          columnDefs={columnDefs}
-          context={{ gridID: GRID_TYPE.TWO }}
-          rowData={dataTwo}
-          onGridReady={gre => apiManager.registerGrid(gre)}
-        />
+      <div style={gridStyle}>
+        <GridMemoWrapper columnDefs={columnDefs} rowData={dataTwo} />
       </div>
     </div>
   );

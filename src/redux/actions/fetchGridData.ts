@@ -1,6 +1,6 @@
-import { AppThunk, IDataTypeOne } from '../../types';
-import { requestGridData, receiveGridData } from '../reducers/data';
 import { GRID_TYPE } from '../../constants';
+import { AppThunk, IDataTypeOne } from '../../types';
+import { receiveGridData, requestGridData } from '../reducers/data';
 
 const fetchGridData = (
   count: number
