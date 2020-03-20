@@ -8,20 +8,22 @@ import { getGridData, RootState } from './redux/reducers';
 
 const columnDefs: ColDef[] = [];
 for (let i = 1; i <= 14; i++) {
-  columnDefs.push({ field: `field${i}`, headerName: `Field ${i}` });
+  columnDefs.push({
+    field: `field${i}`,
+    editable: true,
+    headerName: `Field ${i}`,
+  });
 }
 
 const gridStyle: React.CSSProperties = { height: 400, width: 600 };
 
 const GridComponent: React.FC = () => {
-  const dataOne = useSelector((state: RootState) => {
-    const data = getGridData(state, GRID_TYPE.ONE);
-    return data ? cloneDeep(data) : null;
-  });
-  const dataTwo = useSelector((state: RootState) => {
-    const data = getGridData(state, GRID_TYPE.TWO);
-    return data ? cloneDeep(data) : null;
-  });
+  const dataOne = useSelector((state: RootState) =>
+    cloneDeep(getGridData(state, GRID_TYPE.ONE))
+  );
+  const dataTwo = useSelector((state: RootState) =>
+    cloneDeep(getGridData(state, GRID_TYPE.TWO))
+  );
 
   return (
     <div className="ag-theme-balham">
