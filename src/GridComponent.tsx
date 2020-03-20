@@ -1,4 +1,5 @@
 import { ColDef } from 'ag-grid-community';
+import { cloneDeep } from 'lodash';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { GRID_TYPE } from './constants';
@@ -13,12 +14,14 @@ for (let i = 1; i <= 14; i++) {
 const gridStyle: React.CSSProperties = { height: 400, width: 600 };
 
 const GridComponent: React.FC = () => {
-  const dataOne = useSelector((state: RootState) =>
-    getGridData(state, GRID_TYPE.ONE)
-  );
-  const dataTwo = useSelector((state: RootState) =>
-    getGridData(state, GRID_TYPE.TWO)
-  );
+  const dataOne = useSelector((state: RootState) => {
+    const data = getGridData(state, GRID_TYPE.ONE);
+    return data ? cloneDeep(data) : null;
+  });
+  const dataTwo = useSelector((state: RootState) => {
+    const data = getGridData(state, GRID_TYPE.TWO);
+    return data ? cloneDeep(data) : null;
+  });
 
   return (
     <div className="ag-theme-balham">
