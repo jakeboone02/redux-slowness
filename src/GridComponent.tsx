@@ -18,12 +18,14 @@ for (let i = 1; i <= 14; i++) {
 const gridStyle: React.CSSProperties = { height: 400, width: 600 };
 
 const GridComponent: React.FC = () => {
-  const dataOne = useSelector((state: RootState) =>
-    cloneDeep(getGridData(state, GRID_TYPE.ONE))
+  const dataOneBase = useSelector((state: RootState) =>
+    getGridData(state, GRID_TYPE.ONE)
   );
-  const dataTwo = useSelector((state: RootState) =>
-    cloneDeep(getGridData(state, GRID_TYPE.TWO))
+  const dataOne = cloneDeep(dataOneBase);
+  const dataTwoBase = useSelector((state: RootState) =>
+    getGridData(state, GRID_TYPE.TWO)
   );
+  const dataTwo = cloneDeep(dataTwoBase);
 
   return (
     <div className="ag-theme-balham">
